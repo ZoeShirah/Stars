@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-bullseye
+FROM ruby:3.2.2
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
@@ -20,6 +20,8 @@ RUN mkdir /stars
 WORKDIR /stars
 
 COPY Gemfile Gemfile.lock ./
+RUN gem install bundler 
+RUN bundle config set frozen false
+RUN bundle update --bundler
 RUN bundle install
 
-ADD .
