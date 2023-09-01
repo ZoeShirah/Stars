@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    volumes: 
+      - ".:/stars"
+    ports: 
+      - "3000:3000"
+    command: sleep inf
+    networks:
+      - local-dev
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+
+  mysql:
+    image: mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: 'SOMETHING'
+    networks:
+      - local-dev
+
+
+networks:
+  local-dev:
